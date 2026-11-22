@@ -15,6 +15,8 @@ logic are shared between Android and iPhone.
   an app update or a reinstall.
 - **History** – every dose confirmed as taken, newest first (kept even if the medicine is deleted).
 - **Smart box** – connect to the medicine box over Bluetooth and send a test reminder.
+- **Light / dark mode** – Clair / Auto (follows the phone) / Sombre, from the account menu
+  or the login screen; the choice is saved.
 - **Data kept** – local Room database, backed up and restored by Android Auto Backup
   (e.g. when moving to a new phone).
 
@@ -25,7 +27,7 @@ shared/        Shared code (Android + iPhone)
   commonMain/    data (Room entities, DAOs, database), domain (repositories, rules,
                  password hashing), ui (Compose screens, view models, theme)
   iosMain/       iPhone-specific code (database location)
-  schemas/       Exported Room database schemas (v1, v2)
+  schemas/       Exported Room database schemas (v1, v2, v3)
 androidApp/    Android app: activity, alarms/notifications, Bluetooth, database builder
 ```
 

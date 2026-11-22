@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.smartmedicinebox.data.AppDatabase
 import com.example.smartmedicinebox.domain.AuthRepository
 import com.example.smartmedicinebox.domain.MedicineRepository
+import com.example.smartmedicinebox.domain.SettingsRepository
 
 /**
  * Creates the shared objects once for the whole Android app
@@ -37,6 +38,15 @@ object AppContainer {
         authRepository ?: synchronized(this) {
             authRepository ?: AuthRepository(database(context))
                 .also { authRepository = it }
+        }
+
+    @Volatile
+    private var settings: SettingsRepository? = null
+
+    fun settings(context: Context): SettingsRepository =
+        settings ?: synchronized(this) {
+            settings ?: SettingsRepository(database(context))
+                .also { settings = it }
         }
 
     @Volatile

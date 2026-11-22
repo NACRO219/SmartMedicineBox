@@ -59,6 +59,8 @@ import com.example.smartmedicinebox.ui.theme.Rouge
 import com.example.smartmedicinebox.ui.theme.RougeClair
 import com.example.smartmedicinebox.ui.theme.Texte
 import com.example.smartmedicinebox.ui.theme.Vert
+import com.example.smartmedicinebox.domain.ThemeMode
+import com.example.smartmedicinebox.ui.components.ThemeModeSelector
 
 private enum class AuthMode { Connexion, Inscription }
 
@@ -68,7 +70,9 @@ internal fun AuthScreen(
     form: AuthFormState,
     onLogIn: (identifier: String, password: String) -> Unit,
     onSignUp: (email: String, username: String, password: String, confirm: String) -> Unit,
-    onClearError: () -> Unit
+    onClearError: () -> Unit,
+    themeMode: ThemeMode,
+    onThemeModeChange: (ThemeMode) -> Unit
 ) {
     var mode by rememberSaveable { mutableStateOf(AuthMode.Connexion) }
 
@@ -81,6 +85,15 @@ internal fun AuthScreen(
             .verticalScroll(rememberScrollState())
             .padding(horizontal = 20.dp, vertical = 24.dp)
     ) {
+        // Light / dark choice
+        ThemeModeSelector(
+            selected = themeMode,
+            onSelect = onThemeModeChange,
+            modifier = Modifier.align(Alignment.End)
+        )
+
+        Spacer(Modifier.height(18.dp))
+
         // Brand
         Row(verticalAlignment = Alignment.CenterVertically) {
             Surface(shape = CircleShape, color = Ivoire, shadowElevation = 3.dp) {

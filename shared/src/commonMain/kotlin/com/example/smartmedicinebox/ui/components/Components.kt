@@ -22,10 +22,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.smartmedicinebox.data.Medicine
+import com.example.smartmedicinebox.domain.ThemeMode
 import com.example.smartmedicinebox.ui.theme.Bleu
 import com.example.smartmedicinebox.ui.theme.BleuClair
 import com.example.smartmedicinebox.ui.theme.BordureChamp
@@ -62,6 +65,49 @@ internal fun modernTextFieldColors() =
         focusedContainerColor = Ivoire,
         unfocusedContainerColor = Ivoire
     )
+
+// ==========================================
+// LIGHT / DARK SELECTOR
+// ==========================================
+
+/** Three-way switch: Clair / Auto (phone setting) / Sombre. */
+@Composable
+internal fun ThemeModeSelector(
+    selected: ThemeMode,
+    onSelect: (ThemeMode) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        modifier = modifier,
+        shape = RoundedCornerShape(50),
+        color = BleuClair
+    ) {
+        Row(Modifier.padding(3.dp)) {
+            listOf(
+                ThemeMode.Light to "☀ Clair",
+                ThemeMode.System to "◐ Auto",
+                ThemeMode.Dark to "☾ Sombre"
+            ).forEach { (mode, label) ->
+                val isSelected = mode == selected
+                Surface(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(50))
+                        .clickable { onSelect(mode) },
+                    shape = RoundedCornerShape(50),
+                    color = if (isSelected) Bleu else Color.Transparent
+                ) {
+                    Text(
+                        label,
+                        modifier = Modifier.padding(horizontal = 11.dp, vertical = 6.dp),
+                        color = if (isSelected) Color.White else Texte,
+                        fontSize = 11.sp,
+                        fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
+                    )
+                }
+            }
+        }
+    }
+}
 
 // ==========================================
 // SECTION TITLE

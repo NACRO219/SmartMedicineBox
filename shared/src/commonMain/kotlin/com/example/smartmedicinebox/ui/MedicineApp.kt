@@ -34,6 +34,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.smartmedicinebox.data.User
+import com.example.smartmedicinebox.domain.ThemeMode
+import com.example.smartmedicinebox.ui.components.ThemeModeSelector
 import com.example.smartmedicinebox.ui.components.modernNavigationColors
 import com.example.smartmedicinebox.ui.screens.AddMedicineScreen
 import com.example.smartmedicinebox.ui.screens.HistoryScreen
@@ -53,7 +55,9 @@ enum class Screen { Accueil, Medicaments, Historique, Ajouter }
 fun MedicineApp(
     viewModel: MedicineViewModel,
     user: User,
-    onLogOut: () -> Unit
+    onLogOut: () -> Unit,
+    themeMode: ThemeMode,
+    onThemeModeChange: (ThemeMode) -> Unit
 ) {
 
     val medicines by viewModel.medicines.collectAsState()
@@ -108,7 +112,12 @@ fun MedicineApp(
                 .padding(top = 18.dp, bottom = 25.dp)
         ) {
 
-            AppHeader(user = user, onLogOut = onLogOut)
+            AppHeader(
+                user = user,
+                onLogOut = onLogOut,
+                themeMode = themeMode,
+                onThemeModeChange = onThemeModeChange
+            )
 
             Spacer(Modifier.height(27.dp))
 
@@ -153,7 +162,9 @@ fun MedicineApp(
 @Composable
 private fun AppHeader(
     user: User,
-    onLogOut: () -> Unit
+    onLogOut: () -> Unit,
+    themeMode: ThemeMode,
+    onThemeModeChange: (ThemeMode) -> Unit
 ) {
     var menuOpen by remember { mutableStateOf(false) }
 
@@ -214,6 +225,19 @@ private fun AppHeader(
                         user.email,
                         color = Gris,
                         fontSize = 11.sp
+                    )
+                }
+                HorizontalDivider(color = BleuClair)
+                Column(Modifier.padding(horizontal = 16.dp, vertical = 10.dp)) {
+                    Text(
+                        "Apparence",
+                        color = Gris,
+                        fontSize = 11.sp
+                    )
+                    Spacer(Modifier.height(6.dp))
+                    ThemeModeSelector(
+                        selected = themeMode,
+                        onSelect = onThemeModeChange
                     )
                 }
                 HorizontalDivider(color = BleuClair)

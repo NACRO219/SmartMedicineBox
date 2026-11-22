@@ -15,13 +15,15 @@ import androidx.room.RoomDatabaseConstructor
  * Versions (schemas in shared/schemas/):
  *  1 - medicines + intakes
  *  2 - adds users + session (accounts). Existing medicines and history are kept.
+ *  3 - adds settings (light / dark theme choice). Everything else is kept.
  */
 @Database(
-    entities = [Medicine::class, Intake::class, User::class, Session::class],
-    version = 2,
+    entities = [Medicine::class, Intake::class, User::class, Session::class, Setting::class],
+    version = 3,
     exportSchema = true,
     autoMigrations = [
-        AutoMigration(from = 1, to = 2)
+        AutoMigration(from = 1, to = 2),
+        AutoMigration(from = 2, to = 3)
     ]
 )
 @ConstructedBy(AppDatabaseConstructor::class)
@@ -30,6 +32,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun medicineDao(): MedicineDao
     abstract fun intakeDao(): IntakeDao
     abstract fun userDao(): UserDao
+    abstract fun settingDao(): SettingDao
 
     companion object {
         const val DB_NAME = "smartmed.db"
