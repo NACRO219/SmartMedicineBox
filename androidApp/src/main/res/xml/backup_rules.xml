@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+   Android 11 and older (API 30 and below): what Android Auto Backup saves.
+   Android 12+ uses data_extraction_rules.xml instead.
+   See https://developer.android.com/guide/topics/data/autobackup
+-->
+<full-backup-content>
+    <include domain="database" path="." />
+    <include domain="sharedpref" path="." />
+</full-backup-content>

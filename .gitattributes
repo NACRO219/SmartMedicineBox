@@ -1,0 +1,15 @@
+# Normalize line endings in the repository; check out with the OS default.
+* text=auto
+
+# Shell scripts must keep Unix line endings (gradlew runs on macOS / Linux).
+gradlew text eol=lf
+*.sh text eol=lf
+
+# Windows scripts keep Windows line endings.
+*.bat text eol=crlf
+
+# Binary files
+*.jar binary
+*.png binary
+*.webp binary
+*.ttf binary
