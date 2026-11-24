@@ -11,6 +11,7 @@ import com.example.smartmedicinebox.data.Intake
 import java.text.SimpleDateFormat
 import java.util.Locale
 
+
 /**
  * Opens the shared Room database on Android (same file as before: smartmed.db).
  * The data lives in the app's private storage, so it stays between launches and
@@ -19,6 +20,7 @@ import java.util.Locale
  *
  * [name] is only changed by tests, so they never touch the user's real data.
  */
+
 fun buildAndroidDatabase(
     context: Context,
     name: String = AppDatabase.DB_NAME
